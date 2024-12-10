@@ -20,7 +20,17 @@ Process of low level design
 
 Use cases diagram helps to understand how the software should look like
 
-# Object oriented thought process book
+---
+
+### Programming Paradigms
+
+Programming paradigms are ways we can organize a program to accomplish certain things. Common programming paradigms are OOPS, functional programming, declarative programming and structured programming.
+
+---
+
+## Object oriented thought process book
+
+reading the book to understand object oriented programming in a conceptual way
 
 ## Chapter 1 - Introduction to Object Oriented Concepts
 
@@ -34,6 +44,8 @@ In procedural, structural programming paradigm, data can be manipulated anywhere
 
 Object oriented programming solves this problem by providing guidelines such as only the object can changes it's data (attributes)
 
+---
+
 What is a class?
 
 A class is a template of an object. Attributes, accessors and behaviors are defined in classes. When a object is created, the attributes, behaviors are created based on the class.
@@ -45,6 +57,8 @@ accessors -> access a certain attribute or method
 UML -> It is a modelling tool to assist in designing software
 
 messages -> When object A wants to talk with Object B, Object A will only be able to access public method or property of Object B
+
+---
 
 Encapsulation is
 
@@ -66,6 +80,8 @@ Polymorphism
 - Say we have list of objects with a same method, each object will have different behaviour with same interface like save function on all the games
 
 Composition is another mechanism of building objects, Composition is creating objects with objects. Composition makes **"has-a"** relationship from parent to child class
+
+---
 
 ## Chapter 2 - How to think in terms of object
 
@@ -112,6 +128,50 @@ Followings rules can be followed to accomplish this
 4. Identify Public Interface: Think about what a particular object needs to expose, it is good practice to expose only one behavior per interface.
 5. Implementation: We can use private methods to hide implementations between users, Implementation can also use different classes.
 
-
 ## Chapter 3 - Advanced Object oriented concepts
 
+Concepts such as Constructors, operator overloading and multiple inheritance is for understanding lower level design and implementation but from a higher level
+
+### Constructors
+
+- Constructors are methods that are called during initialization of a Class, the attributes of a class constructed in safe state when constructors are called. "new" keyword is used to initialize a class.
+- when constructors are initialized memory will be allocated for it and it's super classes.
+- In OO languages, constructors should will have the same name as class and it will not return anything. Javascript excluded since it has a method called constructor.
+- If a constructor is not given to a class, the compiler will add a default constructor and have super call to initialize the super class, it is always good to create a constructor even if it is not planned to be used from a maintenance perspective.
+- Multiple constructors are possible in OO languages (JS excluded) until they are called with different parameters
+
+#### Design things for constructors
+
+- Thumb rule is to create constructors for classes even if it is not going to be used.
+- Good practice to initialize all attributes with a value that is stable
+
+```java
+
+    public class ExampleClass {
+        public void ExampleClass() {
+
+        }
+
+        public void ExampleClass(exampleParameter) {
+            
+        }
+    }
+
+    ExampleClass example = new ExampleClass();
+```
+
+### Error Handling
+
+2 optimal ways are described ways described in the book to handle errors
+
+- Checking for problems and recovering
+- Throwing exception
+
+#### Checking for problem and recovering
+
+If the root cause of an issue is identifiable and can be recovered it will be a good idea to add some conditions to not crash the system and record it for observability.
+One example is dividing by zero, since it is not possible we can override the parameter that sends it
+
+#### Throwing an exception
+
+Exception is a way to deal with problem where we don't expect errors, this is done through a try catch block, There will be granularity of exceptions depending upon the situation
