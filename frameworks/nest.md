@@ -11,7 +11,7 @@
 
 ### NestJs Specific concepts
 
-- Basic layout of a Nestjs project - Controllers, Providers, Module - where it originated from, what it helps solving
+- Basic layout of a Nestjs project - Controllers, Providers, Module s
 - Controllers, Providers
 - Writing a basic API in Nestjs
 
@@ -217,3 +217,85 @@ Difference between Inheritance & Composition
     console.log('total cost of items:', coffee.cost())
 
 ```
+
+---
+
+## Decorator in Typescript
+
+- Javascript has proposals to introduce decorators and decorator metadata, Right now Typescript supports these functionalities and reflect-metadata is used for storing metadata.
+- Decorators in typescript are declarations that can be attached to class, method, property and parameters which are executed in runtime
+  
+Example of a property decorator
+
+```typescript
+  
+// property decorator
+export const addPrefix = (prefix) => {
+  return (target, propertyKey) => {
+    let value = `${prefix} ${target[propertyKey]}`;
+
+    // use getter and setter to send and get the values
+    Object.defineProperty(target, propertyKey, {
+      get: () => value,
+      set: (newValue: string) => {
+        value = `${prefix} ${newValue}`;
+      },
+    });
+  };
+};
+
+
+```
+
+---
+
+Example of a adding metadata to a decorator
+
+```typescript
+// method decorator with metadata
+
+export const ContainsBusinessLogic = () => {
+  return (target: object) => {
+    Reflect.defineMetadata('role', 'business-logic', target);
+  };
+};
+
+export const doesObjectHaveBusinessLogic = (target: object) => {
+  const metadata = Reflect.getMetadata('role', target);
+  console.log('metadata', metadata);
+  return metadata;
+};
+
+```
+
+Ref:
+
+- [Docs](https://www.typescriptlang.org/docs/handbook/decorators.html)
+- [nestjs-decorators](https://github.dev/nestjs/nest/blob/master/packages/core/router/request/request-providers.ts)
+- [Reflect-metadata](https://www.wolksoftware.com/blog/decorators-metadata-reflection-in-typescript-from-novice-to-expert-part-4)
+- [Reflect](https://stackoverflow.com/questions/25421903/what-does-the-reflect-object-do-in-javascript)
+
+---
+
+## NestJS Basics
+
+NestJS is a framework that provides an architecture to work from the start, it uses libraries like express to make it possible, it is allow flexible enough to make direct use of other libraries.
+
+Common Files in a nestjs project:
+
+Controller - Controller contains the logic for receiving the request and sending the response. Validation for requests can be handled here as well. In nestjs, @Controller decorator is used to inform
+
+Service - Service is a layer where business logic should be written, A service is identified by adding Injectable decorator in class. This will inform nest to register it as a dependency
+
+Module - Modules are used by Nest to organize the application structure into scopes. Controllers and Providers are scoped by the module they are declared in.
+
+```typescript
+  @Module({
+    controllers: [AppController],
+    providers: [AppService],
+  })
+  class AppModule {}
+
+```
+
+---
